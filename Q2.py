@@ -27,3 +27,8 @@ lsystem = LSystem(variables, axiom, rules)
 n = int(input())
 result = lsystem.produce(n)
 print(result)
+
+
+
+OUTPUT:
+Result for n=3: ABABBBABABBBBBBBBBABABBBABA
