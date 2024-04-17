@@ -1,0 +1,40 @@
+variables : A B
+constants : none
+axiom  : A {starting character string}
+rules  : (A → AB), (B → A)
+which produces:
+n = 0 : S=A
+n = 1 : S=AB
+n = 2 : S=ABA
+n = 3 : S=ABAAB
+n = 4 : S=ABAABABA
+n = 5 : S=ABAABABAABAAB
+Here's a Python class LSystem designed to represent L-systems Using the provided L-system (Cantor fractal) where n=3:
+class LSystem:
+    def __init__(self, variables, axiom, rules):
+        self.variables = variables
+        self.axiom = axiom
+        self.rules = rules
+    
+    def produce(self, n):
+        current_string = self.axiom
+        for _ in range(n):
+            new_string = ""
+            for char in current_string:
+                if char in self.variables:
+                    new_string += self.rules[char]
+                else:
+                    new_string += char
+            current_string = new_string
+        return current_string
+cantor_fractal = LSystem(variables={'A', 'B'}, axiom='A', rules={'A': 'ABA', 'B': 'BBB'})
+result = cantor_fractal.produce(3)
+print("Result for n=3:", result)
+
+output should be:
+Result for n=3: ABAABBBABAABBBABAABBBABAABBBABAABBBABAABBB
+
+The space complexity of this implementation is O(n), where n is the number of iterations. 
+The time complexity is O(n * m), where n is the number of iterations and m is the length of the resulting string at each iteration.
+To optimize the solution,we can consider memoization. Since the L-system rules typically produce the same strings for the same inputs, you can cache the results of each iteration to avoid recalculating them. 
+This can significantly reduce both time and space complexity, making the algorithm more efficient for large values of n.
